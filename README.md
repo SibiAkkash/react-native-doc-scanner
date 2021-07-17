@@ -1,3 +1,7 @@
+### Steps
+* Clone the repo
+* Download add the packages: `npm install --save`
+* Link all native modules: `npx react-native link`
 
 #### For all native modules change version numbers to the following
 ```
@@ -6,11 +10,12 @@
 	compileSdkVersion = 29 
 	targetSdkVersion = 29
 ```
-
 #### Update react-native-perspective-image-cropper: [error](https://stackoverflow.com/questions/64970241/react-native-error-animated-event-now-requires-a-second-argument-for-options)
 
-* Error: `Animated.event now requires a second argument for options`   
-add `{useNativeDriver: false}` to 
+* File to be updated: `/node_modules/react-native-perspective-image-cropper/index.js`
+* In the function `createPanResponder()`, add `{useNativeDriver: false}` as an options object to `onPanResponderMove`
+
+* Before
 ```
 onPanResponderMove: Animated.event([
                 null,
@@ -31,10 +36,16 @@ onPanResponderMove: Animated.event([
             ], {useNativeDriver: false}),
 ```
 
----
-* Splitting modal into different component fixed the re-rendering
-* 
+#### Run the app
 
-### Todo
-* add splash screen
-* remove preview image from docScan screen
+* Connect a physical device to test the app
+* Run metro: `npx react-native start`
+* Android: 
+  * `npx react-native run-android`
+* iOS:
+  * `react-native run-ios`
+
+
+
+---
+### Screenshots
