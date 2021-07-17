@@ -5,8 +5,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  Button,
+  Pressable,
 } from 'react-native';
+
+import CustomButton from './CustomButton';
+import styles from '../constants/commonStyles';
 
 import DocScanner from '@woonivers/react-native-document-scanner';
 import Permissions from 'react-native-permissions';
@@ -15,12 +18,6 @@ const DocScan = ({navigation}) => {
   const docScannerElement = useRef(null);
   const [data, setData] = useState({});
   const [cameraAllowed, setCameraAllowed] = useState(false);
-  const [rectangeCoordinates, setRectangeCoordinates] = useState({
-    topLeft: {x: 10, y: 10},
-    topRight: {x: 10, y: 10},
-    bottomRight: {x: 10, y: 10},
-    bottomLeft: {x: 10, y: 10},
-  });
 
   // get permissions for camera
   useEffect(() => {
@@ -58,12 +55,12 @@ const DocScan = ({navigation}) => {
   };
 
   const handleOnCrop = () => {
-    // customCropElement.current.crop();
+    //   navigate to the cropping screen
     navigation.navigate('Crop', {data});
   };
 
   return (
-    <>
+    <View style={styles.container}>
       {/* <View style={styles.topBar}>
         <Text style={styles.buttonText}>Scanner</Text>
       </View> */}
@@ -91,69 +88,30 @@ const DocScan = ({navigation}) => {
       <View style={styles.bottomBar}>
         {data.croppedImage ? (
           <>
-            <Button
+            <CustomButton
               onPress={handleOnPressRetry}
-              style={styles.button}
-              title="Retry"
+              iconName="back"
+              buttonStyles={styles.button}
+              iconStyles={styles.buttonIcon}
             />
-            <Button onPress={handleOnCrop} style={styles.button} title="Crop" />
+            <CustomButton
+              onPress={handleOnCrop}
+              iconName="crop"
+              buttonStyles={styles.button}
+              iconStyles={styles.buttonIcon}
+            />
           </>
         ) : (
-          <Button
+          <CustomButton
             onPress={handleOnPress}
-            style={styles.button}
-            title="Take picture"
+            iconName="camera"
+            buttonStyles={styles.button}
+            iconStyles={styles.buttonIcon}
           />
         )}
       </View>
-    </>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  topBar: {
-    flex: 1,
-    backgroundColor: 'powderblue',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  scanner: {
-    flex: 6,
-    aspectRatio: undefined,
-    backgroundColor: 'skyblue',
-  },
-  bottomBar: {
-    flex: 1,
-    backgroundColor: 'steelblue',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-  },
-  button: {
-    flex: 1,
-    // alignSelf: 'center',
-    // position: 'absolute',
-    width: 50,
-    bottom: 32,
-    borderColor: 'black',
-    borderWidth: 2,
-  },
-  buttonText: {
-    backgroundColor: 'rgba(245, 252, 255, 0.7)',
-    fontSize: 32,
-  },
-  preview: {
-    flex: 1,
-    width: '100%',
-    resizeMode: 'cover',
-  },
-  permissions: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default DocScan;

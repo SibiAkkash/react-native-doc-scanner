@@ -30,3 +30,11 @@ onPanResponderMove: Animated.event([
                 },
             ], {useNativeDriver: false}),
 ```
+
+---
+* Splitting modal into different component fixed the re-rendering
+* 
+
+### Todo
+* add splash screen
+* remove preview image from docScan screen

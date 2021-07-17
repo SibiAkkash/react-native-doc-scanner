@@ -1,24 +1,27 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
-  Text,
-} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
+
+import {MMKV} from 'react-native-mmkv';
 
 import CustomCrop from 'react-native-perspective-image-cropper';
+import CustomButton from './CustomButton';
+import styles from '../constants/commonStyles';
+
+import FileNameModal from './FileNameModal';
 
 const CropScreen = ({route, navigation}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const textInputRef = useRef(null);
+  const [fileName, setFileName] = useState(null);
+
   const customCropElement = useRef(null);
   //   const [data, setData] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [rectangleCoordinates, setRectangleCoordinates] = useState({
-    topLeft: {x: 10, y: 10},
-    topRight: {x: 10, y: 10},
-    bottomRight: {x: 10, y: 10},
-    bottomLeft: {x: 10, y: 10},
+    topLeft: {x: 20, y: 20},
+    topRight: {x: 20, y: 20},
+    bottomRight: {x: 20, y: 20},
+    bottomLeft: {x: 20, y: 20},
   });
 
   const {data} = route.params;
@@ -31,16 +34,59 @@ const CropScreen = ({route, navigation}) => {
   };
 
   const handleOnCrop = () => {
+    console.log('cropping pic');
     customCropElement.current.crop();
   };
 
-  return (
-    <>
-      {/* <View style={styles.scanner}>
-        <Image source={{uri: data.initialImage}} style={styles.preview} />
-      </View> */}
+  const handleOnReset = () => {
+    setCroppedImage(null);
+    setRectangleCoordinates({
+      topLeft: {x: 20, y: 20},
+      topRight: {x: 20, y: 20},
+      bottomRight: {x: 20, y: 20},
+      bottomLeft: {x: 20, y: 20},
+    });
+  };
 
+  const handleOnSave = () => {
+    setModalVisible(true);
+    // get filename from user
+  };
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleOnClose = () => {
+    setModalVisible(false);
+    setFileName(null);
+  };
+
+  const handleOnChangeText = text => {
+    setFileName(text);
+  };
+
+  const handleOnSubmit = () => {
+    console.log(fileName);
+    setModalVisible(false);
+    setFileName(null);
+    // enter filename
+    // save to local storage
+    //? navigate to list of files scanned
+  };
+
+  return (
+    <View style={styles.container}>
       <View style={styles.scanner}>
+        <FileNameModal
+          visible={modalVisible}
+          fileName={fileName}
+          handleOnClose={handleOnClose}
+          handleOnSubmit={handleOnSubmit}
+          handleOnChangeText={handleOnChangeText}
+          toggleModal={toggleModal}
+        />
+
         {croppedImage ? (
           <Image
             style={styles.preview}
@@ -64,52 +110,60 @@ const CropScreen = ({route, navigation}) => {
       </View>
 
       {/* Crop button */}
+
       <View style={styles.bottomBar}>
-        <Button onPress={handleOnCrop} style={styles.button} title="Crop" />
+        <CustomButton
+          onPress={handleOnReset}
+          iconName="back-in-time"
+          buttonStyles={styles.button}
+          iconStyles={styles.buttonIcon}
+        />
+        {croppedImage ? (
+          <CustomButton
+            onPress={handleOnSave}
+            iconName="save"
+            buttonStyles={styles.button}
+            iconStyles={styles.buttonIcon}
+          />
+        ) : (
+          <CustomButton
+            onPress={handleOnCrop}
+            iconName="check"
+            buttonStyles={styles.button}
+            iconStyles={styles.buttonIcon}
+          />
+        )}
       </View>
-    </>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  topBar: {
+const stylesTemp = StyleSheet.create({
+  outerContainer: {
     flex: 1,
-    backgroundColor: 'powderblue',
+    backgroundColor: '#2C2E43',
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'center',
-  },
-  scanner: {
-    flex: 6,
-    aspectRatio: undefined,
-    backgroundColor: 'black',
-  },
-  bottomBar: {
-    flex: 1,
-    backgroundColor: 'darkgray',
-    display: 'flex',
     alignItems: 'center',
+  },
+  inner: {
+    // marginTop: 200,
+    width: 300,
+    padding: 30,
     justifyContent: 'space-around',
-    flexDirection: 'row',
+    backgroundColor: '#1B1B1B',
+    borderRadius: 10,
   },
-  button: {
-    alignSelf: 'center',
-    position: 'absolute',
-    bottom: 32,
-  },
-  buttonText: {
-    backgroundColor: 'rgba(245, 252, 255, 0.7)',
-    fontSize: 32,
-  },
-  preview: {
-    flex: 1,
-    width: '100%',
-    resizeMode: 'contain',
-  },
-  permissions: {
-    flex: 1,
-    justifyContent: 'center',
+  buttonContainer: {
+    padding: 10,
+    display: 'flex',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    flexDirection: 'row',
+    // backgroundColor: 'black',
+  },
+  textInput: {
+    color: '#B2B1B9',
   },
 });
 
