@@ -1,5 +1,4 @@
 import FileViewer from 'react-native-file-viewer';
-import * as RNFS from 'react-native-fs';
 
 import React, {useEffect, useState} from 'react';
 import {
@@ -11,8 +10,6 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
-
-import {FAB} from 'react-native-elements';
 
 const Item = ({file, onPress}) => {
   //   console.log(file.item.path);
@@ -71,8 +68,8 @@ const styles = StyleSheet.create({
     // padding: 5,
     // paddingHorizontal: 6,
     // paddingVertical: 5,
-    marginVertical: 8,
-    marginHorizontal: 12,
+    marginVertical: 10,
+    marginHorizontal: 10,
   },
   fileNameContainer: {
     // marginTop: 5,
@@ -91,11 +88,12 @@ const styles = StyleSheet.create({
     padding: 5,
     color: '#FFD523',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   imageThumb: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 180,
+    height: 160,
     width: 160,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,

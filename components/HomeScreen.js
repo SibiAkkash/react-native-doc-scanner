@@ -1,36 +1,38 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {
-  View,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Pressable,
-  Dimensions,
-} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 
 import CustomButton from './CustomButton';
 import commonStyles from '../constants/commonStyles';
-import Icon from 'react-native-vector-icons/Entypo';
 
 const HomeScreen = ({route, navigation}) => {
+  const MainButton = ({routeName, text, iconName}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate(routeName)}
+        style={styles.button}>
+        <Icon
+          name={iconName}
+          size={30}
+          color="#1B1B1B"
+          style={styles.buttonIcon}
+        />
+        <Text style={styles.buttonText}>{text}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>DocScan</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <CustomButton
-          onPress={() => navigation.navigate('Scan')}
-          iconName="camera"
-          buttonStyles={commonStyles.button}
-          iconStyles={commonStyles.buttonIcon}
-        />
-        <CustomButton
-          onPress={() => navigation.navigate('Files')}
+        <MainButton routeName="Scan" text="Scan files" iconName="camera" />
+        <MainButton
+          routeName="Files"
+          text="View files"
           iconName="folder-images"
-          buttonStyles={commonStyles.button}
-          iconStyles={commonStyles.buttonIcon}
         />
       </View>
     </View>
@@ -48,14 +50,34 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'white',
+    // backgroundColor: '#B2B1B9',
+    // backgroundColor: 'white',
     padding: 20,
     marginVertical: 10,
+    borderRadius: 10,
+    width: 350,
+  },
+  button: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    backgroundColor: '#FFD523',
+    padding: 25,
+    width: 250,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  buttonIcon: {
+    paddingLeft: 5,
+    paddingRight: 20,
   },
   buttonText: {
-    color: '#FFD523',
+    color: '#2C2E43',
     fontSize: 24,
     marginLeft: 5,
+    fontWeight: 'bold',
+    // marginRight: 5,
   },
   header: {
     flex: 1,

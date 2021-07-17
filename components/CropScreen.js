@@ -82,6 +82,7 @@ const CropScreen = ({route, navigation}) => {
       });
 
     //? navigate to list of files scanned
+    navigation.navigate('Files', {path: path, fileName: fileName});
   };
 
   return (

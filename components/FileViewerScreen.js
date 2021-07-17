@@ -1,7 +1,14 @@
 import * as RNFS from 'react-native-fs';
 
 import React, {useEffect, useState} from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Text,
+  Button,
+} from 'react-native';
 import FilesList from './FilesList';
 
 const isValidFile = file => {
@@ -10,9 +17,20 @@ const isValidFile = file => {
   return validFileExtensions.includes(extension);
 };
 
-const FileViewerScreen = props => {
+const LatestFile = ({fileName, path}) => {
+  return (
+    <TouchableOpacity style={styles.item}>
+      <Image source={{uri: `file://${path}`}} style={styles.imageThumb} />
+      <View style={styles.fileNameContainer}>
+        <Text style={styles.fileName}>{fileName}</Text>
+        <Button title="Upload" />
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const FileViewerScreen = ({route, navigation}) => {
   const [filesList, setFilesList] = useState({});
-  //   const [doneFiltering, setDoneFiltering] = useState(false);
 
   useEffect(() => {
     async function readFiles() {
@@ -30,6 +48,9 @@ const FileViewerScreen = props => {
 
   return (
     <View style={styles.container}>
+      {route.params && (
+        <LatestFile fileName={route.params.fileName} path={route.params.path} />
+      )}
       {filesList ? <FilesList files={filesList} /> : null}
     </View>
   );
@@ -41,6 +62,47 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  item: {
+    display: 'flex',
+    flexDirection: 'row',
+    // backgroundColor: '#B2B1B9',
+    // padding: 10,
+    // paddingHorizontal: 6,
+    // paddingVertical: 5,
+    marginTop: 20,
+    marginHorizontal: 34,
+  },
+  fileNameContainer: {
+    flex: 1,
+    // marginTop: 5,
+    // padding: 5,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2C2E43',
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 8,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 8,
+  },
+  fileName: {
+    margin: 5,
+    padding: 5,
+    color: '#FFD523',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  imageThumb: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 180,
+    width: 170,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 0,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 0,
+    // backgroundColor: 'white',
   },
 });
 

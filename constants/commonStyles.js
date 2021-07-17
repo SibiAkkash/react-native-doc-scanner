@@ -1,14 +1,6 @@
-import React from 'react';
 import {StyleSheet} from 'react-native';
 
 const commonStyles = StyleSheet.create({
-  //   topBar: {
-  //     flex: 1,
-  //     // backgroundColor: 'powderblue',
-  //     display: 'flex',
-  //     alignItems: 'center',
-  //     justifyContent: 'center',
-  //   },
   container: {
     flex: 1,
     backgroundColor: 'white',

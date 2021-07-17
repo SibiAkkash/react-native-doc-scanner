@@ -21,7 +21,6 @@
 		"react-native-file-viewer": "^2.1.4",
 		"react-native-fs": "^2.18.0",
 		"react-native-gesture-handler": "^1.10.3",
-		"react-native-mmkv": "^1.2.0",
 		"react-native-permissions": "^3.0.5",
 		"react-native-perspective-image-cropper": "^0.4.4",
 		"react-native-reanimated": "^2.2.0",

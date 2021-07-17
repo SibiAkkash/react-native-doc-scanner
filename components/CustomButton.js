@@ -1,7 +1,6 @@
-import React, {Text} from 'react';
+import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-import commonStyles from '../constants/commonStyles';
 
 const CustomButton = ({onPress, iconName, buttonStyles, iconStyles}) => {
   return (

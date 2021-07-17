@@ -1,12 +1,5 @@
 import React, {useRef, useState, useEffect} from 'react';
-import {
-  View,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Pressable,
-} from 'react-native';
+import {View, Image} from 'react-native';
 
 import CustomButton from './CustomButton';
 import commonStyles from '../constants/commonStyles';
@@ -59,6 +52,11 @@ const DocScan = ({navigation}) => {
     navigation.navigate('Crop', {data});
   };
 
+  const handleOnPictureTaken = data => {
+    setData(data);
+    navigation.navigate('Crop', {data});
+  };
+
   return (
     <View style={commonStyles.container}>
       {/* <View style={styles.topBar}>
@@ -77,7 +75,7 @@ const DocScan = ({navigation}) => {
           <DocScanner
             ref={docScannerElement}
             style={commonStyles.scanner}
-            onPictureTaken={data => setData(data)}
+            onPictureTaken={handleOnPictureTaken}
             overlayColor="rgba(255,130,0, 0.7)"
             enableTorch={false}
             quality={0.5}

@@ -6,21 +6,8 @@
  * @flow strict-local
  */
 
-import React, {useEffect, useState, useRef} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TouchableOpacity,
-  Platform,
-  Image,
-  Animated,
-  Button,
-} from 'react-native';
+import React from 'react';
+import {StyleSheet, useColorScheme, TouchableOpacity} from 'react-native';
 
 import {
   Colors,
