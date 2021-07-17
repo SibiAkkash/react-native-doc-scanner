@@ -7,7 +7,8 @@
 	targetSdkVersion = 29
 ```
 
-#### Update react-native-perspective-image-cropper
+#### Update react-native-perspective-image-cropper: [error](https://stackoverflow.com/questions/64970241/react-native-error-animated-event-now-requires-a-second-argument-for-options)
+
 * Error: `Animated.event now requires a second argument for options`   
 add `{useNativeDriver: false}` to 
 ```

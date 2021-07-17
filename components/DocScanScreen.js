@@ -62,38 +62,6 @@ const DocScan = ({navigation}) => {
     navigation.navigate('Crop', {data});
   };
 
-  //   if (data.croppedImage) {
-  //     console.log(data);
-  //     return (
-  //       <>
-  //         <Image source={{uri: data.croppedImage}} style={styles.preview} />
-  //         {/* Crop button */}
-
-  //         {/* <CustomCrop
-  //           ref={customCropElement}
-  //           updateImage={updateImage}
-  //           rectangeCoordinates={rectangeCoordinates}
-  //           initialImage={data.initialImage}
-  //           height={data.height}
-  //           width={data.width}
-  //           overlayColor="rgba(18, 190, 210, 1)"
-  //           overlayStrokeColor="rgba(20, 190, 210, 1)"
-  //           handlerColor="rgba(20, 150, 160, 1)"
-  //           enablePanStrict={false}
-  //         /> */}
-
-  //         {/* <TouchableOpacity onPress={handleOnCrop} style={styles.button}>
-  //           <Text style={styles.buttonText}>Crop image</Text>
-  //         </TouchableOpacity> */}
-
-  //         {/* Retry taking image */}
-  //         <TouchableOpacity onPress={handleOnPressRetry} style={styles.button}>
-  //           <Text style={styles.buttonText}>Retry</Text>
-  //         </TouchableOpacity>
-  //       </>
-  //     );
-  //   }
-
   return (
     <>
       {/* <View style={styles.topBar}>
@@ -101,12 +69,11 @@ const DocScan = ({navigation}) => {
       </View> */}
 
       {/* When we have the cropped image, show the image, otherwise show camera output */}
-      {data.croppedImage ? (
-        <View style={styles.scanner}>
+
+      <View style={styles.scanner}>
+        {data.croppedImage ? (
           <Image source={{uri: data.croppedImage}} style={styles.preview} />
-        </View>
-      ) : (
-        <View style={styles.scanner}>
+        ) : (
           <DocScanner
             ref={docScannerElement}
             style={styles.scanner}
@@ -117,28 +84,28 @@ const DocScan = ({navigation}) => {
             detectionCountBeforeCapture={5}
             detectionRefreshRateInMS={50}
           />
-        </View>
-      )}
-      {/* show retry button after taking picture, otherwise take picture button */}
-      {data.croppedImage ? (
-        <View style={styles.bottomBar}>
-          <Button
-            onPress={handleOnPressRetry}
-            style={styles.button}
-            title="Retry"
-          />
+        )}
+      </View>
 
-          <Button onPress={handleOnCrop} style={styles.button} title="Crop" />
-        </View>
-      ) : (
-        <View style={styles.bottomBar}>
+      {/* show retry button after taking picture, otherwise take picture button */}
+      <View style={styles.bottomBar}>
+        {data.croppedImage ? (
+          <>
+            <Button
+              onPress={handleOnPressRetry}
+              style={styles.button}
+              title="Retry"
+            />
+            <Button onPress={handleOnCrop} style={styles.button} title="Crop" />
+          </>
+        ) : (
           <Button
             onPress={handleOnPress}
             style={styles.button}
             title="Take picture"
           />
-        </View>
-      )}
+        )}
+      </View>
     </>
   );
 };

@@ -13,6 +13,7 @@ import CustomCrop from 'react-native-perspective-image-cropper';
 const CropScreen = ({route, navigation}) => {
   const customCropElement = useRef(null);
   //   const [data, setData] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
   const [rectangleCoordinates, setRectangleCoordinates] = useState({
     topLeft: {x: 10, y: 10},
     topRight: {x: 10, y: 10},
@@ -21,19 +22,12 @@ const CropScreen = ({route, navigation}) => {
   });
 
   const {data} = route.params;
-  console.log(data);
+  //   console.log(data);
 
   const updateImage = (croppedImage, newCoords) => {
     console.log(newCoords);
-    // setData(prev => {
-    //   let newState = {
-    //     ...prev,
-    //     image: croppedImage,
-    //     rectangeCoordinates: newCoords,
-    //   };
-    //   return newState;
-    // });
-    // setRectangeCoordinates(newCoords);
+    setCroppedImage(croppedImage);
+    setRectangleCoordinates(newCoords);
   };
 
   const handleOnCrop = () => {
@@ -47,20 +41,28 @@ const CropScreen = ({route, navigation}) => {
       </View> */}
 
       <View style={styles.scanner}>
-        <CustomCrop
-          ref={customCropElement}
-          style={styles.scanner}
-          updateImage={updateImage}
-          rectangeCoordinates={rectangleCoordinates}
-          initialImage={data.initialImage}
-          height={data.height}
-          width={data.width}
-          overlayColor="rgba(18, 190, 210, 1)"
-          overlayStrokeColor="rgba(20, 190, 210, 1)"
-          handlerColor="rgba(20, 150, 160, 1)"
-          enablePanStrict={false}
-        />
+        {croppedImage ? (
+          <Image
+            style={styles.preview}
+            source={{uri: `data:image/jpeg;base64,${croppedImage}`}}
+          />
+        ) : (
+          <CustomCrop
+            ref={customCropElement}
+            style={styles.scanner}
+            updateImage={updateImage}
+            rectangeCoordinates={rectangleCoordinates}
+            initialImage={data.initialImage}
+            height={data.height}
+            width={data.width}
+            overlayColor="rgba(18, 190, 210, 1)"
+            overlayStrokeColor="rgba(20, 190, 210, 1)"
+            handlerColor="rgba(20, 150, 160, 1)"
+            enablePanStrict={false}
+          />
+        )}
       </View>
+
       {/* Crop button */}
       <View style={styles.bottomBar}>
         <Button onPress={handleOnCrop} style={styles.button} title="Crop" />
@@ -80,11 +82,11 @@ const styles = StyleSheet.create({
   scanner: {
     flex: 6,
     aspectRatio: undefined,
-    backgroundColor: 'skyblue',
+    backgroundColor: 'black',
   },
   bottomBar: {
     flex: 1,
-    backgroundColor: 'steelblue',
+    backgroundColor: 'darkgray',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
   preview: {
     flex: 1,
     width: '100%',
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   permissions: {
     flex: 1,
