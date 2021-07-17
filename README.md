@@ -47,3 +47,23 @@ onPanResponderMove: Animated.event([
 
 ---
 ## Screenshots
+
+### Home screen
+<img src="./assets/HomeScreen.jpg" alt="drawing" width="120"/>
+
+### Scan screen
+
+<img src="./assets/ScanScreen.jpg" alt="drawing" width="120"/>
+
+### Crop screen
+<img src="./assets/CropScreen.jpg" alt="drawing" width="120"/>
+
+### SetFileName screen
+<img src="./assets/SetFileName.jpg" alt="drawing" width="120"/>
+
+### FilesList screen after scanning a file
+<img src="./assets/LatestFileScanned.jpg" alt="drawing" width="120"/>
+
+### Local files grid view
+<img src="./assets/FilesGridView.jpg" alt="drawing" width="120"/>
+
