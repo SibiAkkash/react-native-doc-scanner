@@ -17,13 +17,36 @@ const isValidFile = file => {
   return validFileExtensions.includes(extension);
 };
 
+const uploadFile = async (fileName, path) => {
+  return;
+  const imgPath = `file://${RNFS.DocumentDirectoryPath}/${fileName}.jpg`;
+
+  const MY_API_KEY = 'A3jtQr5iFTjW8AX9YgeLZz';
+  const uploadURL = `https://www.filestackapi.com/api/store/S3?key=${MY_API_KEY}`;
+
+  console.log('uploading files...');
+
+  const response = await fetch(uploadURL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'image/jpeg',
+    },
+    body: imgPath,
+  });
+
+  if (response.status == 200) {
+    // console.log('uploaded file');
+    console.log(response);
+  }
+};
+
 const LatestFile = ({fileName, path}) => {
   return (
     <TouchableOpacity style={styles.item}>
       <Image source={{uri: `file://${path}`}} style={styles.imageThumb} />
       <View style={styles.fileNameContainer}>
-        <Text style={styles.fileName}>{fileName}</Text>
-        <Button title="Upload" />
+        <Text style={styles.fileName}>{`${fileName}.jpg`}</Text>
+        <Button title="Upload" onPress={() => uploadFile(fileName, path)} />
       </View>
     </TouchableOpacity>
   );

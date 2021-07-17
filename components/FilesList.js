@@ -41,6 +41,9 @@ const FilesList = ({files}) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Local files</Text>
+      </View>
       <FlatList
         data={files}
         renderItem={renderItem}
@@ -54,7 +57,7 @@ const FilesList = ({files}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: 'white',
     margin: 12,
@@ -100,6 +103,19 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
     // backgroundColor: 'white',
+  },
+  header: {
+    display: 'flex',
+    // justifyContent: 'flex-start',
+    // alignItems: 'center',
+    marginVertical: 10,
+    marginHorizontal: 10,
+    backgroundColor: '#B2B1B9',
+  },
+  headerText: {
+    color: 'black',
+    padding: 10,
+    fontSize: 20,
   },
 });
 
