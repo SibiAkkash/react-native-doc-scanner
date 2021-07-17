@@ -1,4 +1,4 @@
-### Steps
+## Steps
 * Clone the repo
 * Download add the packages: `npm install --save`
 * Link all native modules: `npx react-native link`
@@ -48,4 +48,4 @@ onPanResponderMove: Animated.event([
 
 
 ---
-### Screenshots
+## Screenshots
