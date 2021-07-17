@@ -29,7 +29,13 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import DocScan from './components/docScanTest';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+import DocScanScreen from './components/DocScanScreen';
+import CropScreen from './components/CropScreen';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -42,12 +48,12 @@ const App = () => {
     // <SafeAreaView style={backgroundStyle}>
     //   <DocScan />
     // </SafeAreaView>
-    <View style={styles.container}>
-      <DocScan />
-    </View>
-    // <>
-    //   <DocScan />
-    // </>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Scanner" component={DocScanScreen} />
+        <Stack.Screen name="Crop" component={CropScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

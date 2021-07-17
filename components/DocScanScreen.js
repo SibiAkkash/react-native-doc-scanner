@@ -1,17 +1,20 @@
 import React, {useRef, useState, useEffect} from 'react';
-import {View, Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 
 import DocScanner from '@woonivers/react-native-document-scanner';
-import CustomCrop from 'react-native-perspective-image-cropper';
 import Permissions from 'react-native-permissions';
 
-const DocScan = () => {
+const DocScan = ({navigation}) => {
   const docScannerElement = useRef(null);
-  const customCropElement = useRef(null);
   const [data, setData] = useState({});
   const [cameraAllowed, setCameraAllowed] = useState(false);
-  //   const [imageWidth, setImageWidth] = useState(0);
-  //   const [imageHeight, setImageHeight] = useState(0);
   const [rectangeCoordinates, setRectangeCoordinates] = useState({
     topLeft: {x: 10, y: 10},
     topRight: {x: 10, y: 10},
@@ -44,18 +47,6 @@ const DocScan = () => {
   //   );
   // }
 
-  const updateImage = (croppedImage, newCoords) => {
-    // setData(prev => {
-    //   let newState = {
-    //     ...prev,
-    //     image: croppedImage,
-    //     rectangeCoordinates: newCoords,
-    //   };
-    //   return newState;
-    // });
-    // setRectangeCoordinates(newCoords);
-  };
-
   const handleOnPress = () => {
     console.log('capturing pic');
     docScannerElement.current.capture();
@@ -67,7 +58,8 @@ const DocScan = () => {
   };
 
   const handleOnCrop = () => {
-    customCropElement.current.crop();
+    // customCropElement.current.crop();
+    navigation.navigate('Crop', {data});
   };
 
   //   if (data.croppedImage) {
@@ -104,10 +96,11 @@ const DocScan = () => {
 
   return (
     <>
-      <View style={styles.topBar}>
+      {/* <View style={styles.topBar}>
         <Text style={styles.buttonText}>Scanner</Text>
-      </View>
+      </View> */}
 
+      {/* When we have the cropped image, show the image, otherwise show camera output */}
       {data.croppedImage ? (
         <View style={styles.scanner}>
           <Image source={{uri: data.croppedImage}} style={styles.preview} />
@@ -126,45 +119,29 @@ const DocScan = () => {
           />
         </View>
       )}
-
+      {/* show retry button after taking picture, otherwise take picture button */}
       {data.croppedImage ? (
         <View style={styles.bottomBar}>
-          <TouchableOpacity onPress={handleOnPressRetry} style={styles.button}>
-            <Text style={styles.buttonText}>Retry</Text>
-          </TouchableOpacity>
+          <Button
+            onPress={handleOnPressRetry}
+            style={styles.button}
+            title="Retry"
+          />
+
+          <Button onPress={handleOnCrop} style={styles.button} title="Crop" />
         </View>
       ) : (
         <View style={styles.bottomBar}>
-          <TouchableOpacity onPress={handleOnPress} style={styles.button}>
-            <Text style={styles.buttonText}>Take picture</Text>
-          </TouchableOpacity>
+          <Button
+            onPress={handleOnPress}
+            style={styles.button}
+            title="Take picture"
+          />
         </View>
       )}
     </>
   );
 };
-
-{
-  /* <View style={styles.scanner}>
-        <DocScanner
-          ref={docScannerElement}
-          style={styles.scanner}
-          onPictureTaken={data => setData(data)}
-          overlayColor="rgba(255,130,0, 0.7)"
-          enableTorch={false}
-          quality={0.5}
-          detectionCountBeforeCapture={5}
-          detectionRefreshRateInMS={50}
-        />
-      </View>
-
-      <View style={styles.bottomBar}>
-        <TouchableOpacity onPress={handleOnPress} style={styles.button}>
-          <Text style={styles.buttonText}>Take picture</Text>
-        </TouchableOpacity>
-      </View> 
-*/
-}
 
 const styles = StyleSheet.create({
   topBar: {
@@ -182,11 +159,19 @@ const styles = StyleSheet.create({
   bottomBar: {
     flex: 1,
     backgroundColor: 'steelblue',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
   },
   button: {
-    alignSelf: 'center',
-    position: 'absolute',
+    flex: 1,
+    // alignSelf: 'center',
+    // position: 'absolute',
+    width: 50,
     bottom: 32,
+    borderColor: 'black',
+    borderWidth: 2,
   },
   buttonText: {
     backgroundColor: 'rgba(245, 252, 255, 0.7)',
