@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 
-const styles = StyleSheet.create({
+const commonStyles = StyleSheet.create({
   //   topBar: {
   //     flex: 1,
   //     // backgroundColor: 'powderblue',
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
+export default commonStyles;

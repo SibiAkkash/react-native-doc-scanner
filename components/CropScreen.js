@@ -1,13 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 
-import {MMKV} from 'react-native-mmkv';
+import RNFS from 'react-native-fs';
 
 import CustomCrop from 'react-native-perspective-image-cropper';
-import CustomButton from './CustomButton';
-import styles from '../constants/commonStyles';
-
 import FileNameModal from './FileNameModal';
+import CustomButton from './CustomButton';
+import commonStyles from '../constants/commonStyles';
 
 const CropScreen = ({route, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -69,15 +68,25 @@ const CropScreen = ({route, navigation}) => {
   const handleOnSubmit = () => {
     console.log(fileName);
     setModalVisible(false);
-    setFileName(null);
-    // enter filename
+
     // save to local storage
+    const path = `${RNFS.DocumentDirectoryPath}/${fileName}.jpg`;
+
+    // write the file
+    RNFS.writeFile(path, croppedImage, 'base64')
+      .then(success => {
+        console.log('FILE WRITTEN!');
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+
     //? navigate to list of files scanned
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.scanner}>
+    <View style={commonStyles.container}>
+      <View style={commonStyles.scanner}>
         <FileNameModal
           visible={modalVisible}
           fileName={fileName}
@@ -89,13 +98,13 @@ const CropScreen = ({route, navigation}) => {
 
         {croppedImage ? (
           <Image
-            style={styles.preview}
+            style={commonStyles.preview}
             source={{uri: `data:image/jpeg;base64,${croppedImage}`}}
           />
         ) : (
           <CustomCrop
             ref={customCropElement}
-            style={styles.scanner}
+            style={commonStyles.scanner}
             updateImage={updateImage}
             rectangeCoordinates={rectangleCoordinates}
             initialImage={data.initialImage}
@@ -111,26 +120,26 @@ const CropScreen = ({route, navigation}) => {
 
       {/* Crop button */}
 
-      <View style={styles.bottomBar}>
+      <View style={commonStyles.bottomBar}>
         <CustomButton
           onPress={handleOnReset}
           iconName="back-in-time"
-          buttonStyles={styles.button}
-          iconStyles={styles.buttonIcon}
+          buttonStyles={commonStyles.button}
+          iconStyles={commonStyles.buttonIcon}
         />
         {croppedImage ? (
           <CustomButton
             onPress={handleOnSave}
             iconName="save"
-            buttonStyles={styles.button}
-            iconStyles={styles.buttonIcon}
+            buttonStyles={commonStyles.button}
+            iconStyles={commonStyles.buttonIcon}
           />
         ) : (
           <CustomButton
             onPress={handleOnCrop}
             iconName="check"
-            buttonStyles={styles.button}
-            iconStyles={styles.buttonIcon}
+            buttonStyles={commonStyles.button}
+            iconStyles={commonStyles.buttonIcon}
           />
         )}
       </View>

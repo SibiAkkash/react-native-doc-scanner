@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import CustomButton from './CustomButton';
-import styles from '../constants/commonStyles';
+import commonStyles from '../constants/commonStyles';
 
 import DocScanner from '@woonivers/react-native-document-scanner';
 import Permissions from 'react-native-permissions';
@@ -60,20 +60,23 @@ const DocScan = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       {/* <View style={styles.topBar}>
         <Text style={styles.buttonText}>Scanner</Text>
       </View> */}
 
       {/* When we have the cropped image, show the image, otherwise show camera output */}
 
-      <View style={styles.scanner}>
+      <View style={commonStyles.scanner}>
         {data.croppedImage ? (
-          <Image source={{uri: data.croppedImage}} style={styles.preview} />
+          <Image
+            source={{uri: data.croppedImage}}
+            style={commonStyles.preview}
+          />
         ) : (
           <DocScanner
             ref={docScannerElement}
-            style={styles.scanner}
+            style={commonStyles.scanner}
             onPictureTaken={data => setData(data)}
             overlayColor="rgba(255,130,0, 0.7)"
             enableTorch={false}
@@ -85,28 +88,28 @@ const DocScan = ({navigation}) => {
       </View>
 
       {/* show retry button after taking picture, otherwise take picture button */}
-      <View style={styles.bottomBar}>
+      <View style={commonStyles.bottomBar}>
         {data.croppedImage ? (
           <>
             <CustomButton
               onPress={handleOnPressRetry}
               iconName="back"
-              buttonStyles={styles.button}
-              iconStyles={styles.buttonIcon}
+              buttonStyles={commonStyles.button}
+              iconStyles={commonStyles.buttonIcon}
             />
             <CustomButton
               onPress={handleOnCrop}
               iconName="crop"
-              buttonStyles={styles.button}
-              iconStyles={styles.buttonIcon}
+              buttonStyles={commonStyles.button}
+              iconStyles={commonStyles.buttonIcon}
             />
           </>
         ) : (
           <CustomButton
             onPress={handleOnPress}
             iconName="camera"
-            buttonStyles={styles.button}
-            iconStyles={styles.buttonIcon}
+            buttonStyles={commonStyles.button}
+            iconStyles={commonStyles.buttonIcon}
           />
         )}
       </View>
