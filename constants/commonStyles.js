@@ -3,13 +3,13 @@ import {StyleSheet} from 'react-native';
 const commonStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#1B1B1B',
     height: 100,
   },
 
   scanner: {
     flex: 6,
-    backgroundColor: 'skyblue',
+    backgroundColor: '#1B1B1B',
     aspectRatio: 2 / 3,
   },
   bottomBar: {

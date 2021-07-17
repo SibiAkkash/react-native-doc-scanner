@@ -28,15 +28,6 @@ const DocScan = ({navigation}) => {
     requestCamera();
   }, []);
 
-  // if (!cameraAllowed) {
-  //   console.log('Give permission to use camera');
-  //   return (
-  //     <View style={styles.permissions}>
-  //       <Text>Accept camera perms bruh</Text>
-  //     </View>
-  //   );
-  // }
-
   const handleOnPress = () => {
     console.log('capturing pic');
     docScannerElement.current.capture();
@@ -59,10 +50,6 @@ const DocScan = ({navigation}) => {
 
   return (
     <View style={commonStyles.container}>
-      {/* <View style={styles.topBar}>
-        <Text style={styles.buttonText}>Scanner</Text>
-      </View> */}
-
       {/* When we have the cropped image, show the image, otherwise show camera output */}
 
       <View style={commonStyles.scanner}>

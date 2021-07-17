@@ -61,7 +61,6 @@ const FileViewerScreen = ({route, navigation}) => {
         const files = await RNFS.readDir(`${RNFS.DocumentDirectoryPath}/`);
         let filteredFiles = files.filter(file => isValidFile(file));
         setFilesList(filteredFiles);
-        // setDoneFiltering(true);
       } catch (err) {
         console.log(err.message, err.code);
       }
@@ -89,17 +88,11 @@ const styles = StyleSheet.create({
   item: {
     display: 'flex',
     flexDirection: 'row',
-    // backgroundColor: '#B2B1B9',
-    // padding: 10,
-    // paddingHorizontal: 6,
-    // paddingVertical: 5,
     marginTop: 20,
     marginHorizontal: 34,
   },
   fileNameContainer: {
     flex: 1,
-    // marginTop: 5,
-    // padding: 5,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -125,7 +118,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 0,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 0,
-    // backgroundColor: 'white',
   },
 });
 

@@ -14,7 +14,6 @@ const CropScreen = ({route, navigation}) => {
   const [fileName, setFileName] = useState(null);
 
   const customCropElement = useRef(null);
-  //   const [data, setData] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [rectangleCoordinates, setRectangleCoordinates] = useState({
     topLeft: {x: 20, y: 20},
@@ -24,7 +23,6 @@ const CropScreen = ({route, navigation}) => {
   });
 
   const {data} = route.params;
-  //   console.log(data);
 
   const updateImage = (croppedImage, newCoords) => {
     console.log(newCoords);
@@ -49,7 +47,6 @@ const CropScreen = ({route, navigation}) => {
 
   const handleOnSave = () => {
     setModalVisible(true);
-    // get filename from user
   };
 
   const toggleModal = () => {
@@ -147,34 +144,5 @@ const CropScreen = ({route, navigation}) => {
     </View>
   );
 };
-
-const stylesTemp = StyleSheet.create({
-  outerContainer: {
-    flex: 1,
-    backgroundColor: '#2C2E43',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  inner: {
-    // marginTop: 200,
-    width: 300,
-    padding: 30,
-    justifyContent: 'space-around',
-    backgroundColor: '#1B1B1B',
-    borderRadius: 10,
-  },
-  buttonContainer: {
-    padding: 10,
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexDirection: 'row',
-    // backgroundColor: 'black',
-  },
-  textInput: {
-    color: '#B2B1B9',
-  },
-});
 
 export default CropScreen;

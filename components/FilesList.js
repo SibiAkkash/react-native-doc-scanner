@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 const Item = ({file, onPress}) => {
-  //   console.log(file.item.path);
   return (
     <TouchableOpacity onPress={onPress} style={styles.item}>
       <Image
@@ -55,24 +54,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'white',
     margin: 12,
     padding: 10,
   },
   item: {
     display: 'flex',
     flexDirection: 'column',
-    // margin: 1,
-    // backgroundColor: '#B2B1B9',
-    // padding: 5,
-    // paddingHorizontal: 6,
-    // paddingVertical: 5,
     marginVertical: 10,
     marginHorizontal: 10,
   },
   fileNameContainer: {
-    // marginTop: 5,
-    // padding: 5,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -98,7 +89,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    // backgroundColor: 'white',
   },
 });
 
