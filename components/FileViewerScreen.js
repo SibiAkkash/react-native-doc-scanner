@@ -17,11 +17,12 @@ const isValidFile = file => {
   return validFileExtensions.includes(extension);
 };
 
+//? Couldn't complete
 const uploadFile = async (fileName, path) => {
   return;
   const imgPath = `file://${RNFS.DocumentDirectoryPath}/${fileName}.jpg`;
 
-  const MY_API_KEY = 'A3jtQr5iFTjW8AX9YgeLZz';
+  const MY_API_KEY = 'api-key-here';
   const uploadURL = `https://www.filestackapi.com/api/store/S3?key=${MY_API_KEY}`;
 
   console.log('uploading files...');
